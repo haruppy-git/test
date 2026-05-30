@@ -362,16 +362,24 @@
             position: absolute;
             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
             background: var(--dark);
-            will-change: transform, opacity;
+            will-change: transform, filter;
         }
 
-        .hex-cell.wave-out {
-            animation: hexDisappear 0.38s ease-in var(--delay, 0ms) both;
+        .hex-cell.suck-in {
+            animation: hexSuckIn 0.9s ease-in var(--suck-delay, 0ms) both;
         }
 
-        @keyframes hexDisappear {
-            0%   { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0); opacity: 0; }
+        @keyframes hexSuckIn {
+            0%   { transform: translate(0, 0) scale(1);                                                         background: var(--dark); filter: none; }
+            9%   { transform: translate(0, 0) scale(0.82);                                                      background: #00ff88;     filter: drop-shadow(0 0 18px #00cc6e) drop-shadow(0 0 38px rgba(0,204,110,0.55)); }
+            22%  { transform: translate(0, 0) scale(0.68);                                                      background: var(--dark); filter: none; }
+            100% { transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(0);                               background: var(--dark); filter: none; }
+        }
+
+        @keyframes loaderFlyUp {
+            0%   { transform: translateY(0) scale(1);      opacity: 1; }
+            18%  { transform: translateY(-22px) scale(1.12); opacity: 1; }
+            100% { transform: translateY(-115vh) scale(0.3);  opacity: 0; }
         }
 
         .loader-content {
@@ -1429,29 +1437,39 @@
                 const left = cx - HW / 2 + dc * colStep;
                 const top  = cy - HH / 2 + dr * rowStep + (Math.abs(dc) % 2 === 1 ? HH / 2 : 0);
                 if (left + HW < 0 || left > vw || top + HH < 0 || top > vh) continue;
-                const dist = Math.hypot(left + HW / 2 - cx, top + HH / 2 - cy);
-                hexData.push({ left, top, dist });
+                const hcx = left + HW / 2, hcy = top + HH / 2;
+                const dist = Math.hypot(hcx - cx, hcy - cy);
+                const tx = cx - hcx, ty = cy - hcy;
+                hexData.push({ left, top, dist, tx, ty });
             }
         }
 
         const maxDist = hexData.reduce((m, h) => Math.max(m, h.dist), 0);
         const B = 3; // bleed: overlap adjacent cells by 3px to kill sub-pixel gaps
         const frag = document.createDocumentFragment();
-        hexData.forEach(({ left, top, dist }) => {
+        hexData.forEach(({ left, top, dist, tx, ty }) => {
             const div = document.createElement('div');
             div.className = 'hex-cell';
             div.style.cssText = 'left:' + (left - B) + 'px;top:' + (top - B) + 'px;width:' + (HW + B * 2) + 'px;height:' + (HH + B * 2) + 'px;';
             div.dataset.dist = dist;
+            div.dataset.tx = tx;
+            div.dataset.ty = ty;
             frag.appendChild(div);
         });
         grid.appendChild(frag);
         loader.style.background = 'transparent';
 
-        window._hexWaveOut = function () {
+        window._hexSuckIn = function () {
             grid.querySelectorAll('.hex-cell').forEach(function (cell) {
-                const delay = maxDist > 0 ? Math.round(parseFloat(cell.dataset.dist) / maxDist * 750) : 0;
-                cell.style.setProperty('--delay', delay + 'ms');
-                cell.classList.add('wave-out');
+                const dist = parseFloat(cell.dataset.dist);
+                if (dist < 10) return; // center cell stays for fly-up
+                const base  = maxDist > 0 ? Math.round((dist / maxDist) * 550) : 0;
+                const delay = base + Math.round(Math.random() * 160);
+                cell.style.setProperty('--tx', cell.dataset.tx + 'px');
+                cell.style.setProperty('--ty', cell.dataset.ty + 'px');
+                cell.style.setProperty('--suck-delay', delay + 'ms');
+                cell.style.zIndex = Math.max(1, 1000 - delay);
+                cell.classList.add('suck-in');
             });
         };
     })();
@@ -1461,29 +1479,36 @@
         const loader = document.getElementById('loading-screen');
         if (!loader) return;
 
+        // Ring animation completes → logo goes white/colorful
         setTimeout(() => {
             loader.classList.add('is-complete');
         }, 2350);
 
+        // Suck-in: surrounding hexes shrink + fly toward center (1100ms)
         setTimeout(() => {
-            const lc = loader.querySelector('.loader-content');
+            if (window._hexSuckIn) window._hexSuckIn();
+        }, 2750);
+
+        // Fly-up: center hex shoots upward after all hexes absorbed (900ms anim + 550ms max delay)
+        setTimeout(() => {
+            const lc  = loader.querySelector('.loader-content');
+            const hexGrid = document.getElementById('hex-grid');
+            const centerCell = hexGrid && [...hexGrid.querySelectorAll('.hex-cell')]
+                .find(c => parseFloat(c.dataset.dist) < 10);
+
             if (lc) {
                 lc.style.animation = 'none';
                 lc.getBoundingClientRect();
-                lc.style.transition = 'opacity 0.3s ease-in, transform 0.32s ease-in';
-                lc.style.opacity = '0';
-                lc.style.transform = 'scale(0)';
+                lc.style.animation = 'loaderFlyUp 0.55s ease-in forwards';
             }
-            if (window._hexWaveOut) window._hexWaveOut();
-        }, 2750);
+            if (centerCell) {
+                centerCell.style.animation = 'loaderFlyUp 0.55s ease-in forwards';
+            }
+        }, 2750 + 900 + 550 + 160); // = 4360ms (base + max jitter)
 
-        setTimeout(() => {
-            loader.classList.add('is-hidden');
-        }, 3700);
-
-        setTimeout(() => {
-            loader.remove();
-        }, 4300);
+        // Hide & remove after fly-up
+        setTimeout(() => { loader.classList.add('is-hidden'); }, 4360 + 550);
+        setTimeout(() => { loader.remove(); },                  4360 + 750);
     });
 
     /* FAQ accordion */
