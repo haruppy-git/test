@@ -684,8 +684,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             transition: border-color 0.2s, transform 0.2s;
         }
-        .tool-card:hover { transform: translateY(-4px); }
-        .tool-card-green { background: rgba(0,204,110,0.15); border-color: var(--green); }
+.tool-card-green { background: rgba(0,204,110,0.15); border-color: var(--green); }
         .tool-card-pink  { background: rgba(255,60,142,0.15); border-color: var(--pink); }
         .feature-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
         .feature-badge { background: rgba(0,204,110,0.12); border: 1px solid var(--green); color: var(--green); padding: 7px 18px; border-radius: 20px; font-size: 1rem; font-weight: 800; letter-spacing: 0.03em; }
@@ -709,60 +708,87 @@
         .curriculum-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 20px;
         }
 
         .curriculum-card {
-            background: var(--white);
-            border: 1px solid rgba(0,0,0,0.07);
-            border-radius: 18px;
-            padding: 28px 26px;
+            background: linear-gradient(var(--white), var(--white)) padding-box,
+                        linear-gradient(135deg, var(--green), var(--pink)) border-box;
+            border: 3px solid transparent;
+            border-radius: 22px;
+            padding: 36px 30px 28px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .curriculum-card:nth-child(even) {
+            background: linear-gradient(var(--white), var(--white)) padding-box,
+                        linear-gradient(135deg, var(--pink), var(--green)) border-box;
         }
 
         .curriculum-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--green), var(--pink));
+            top: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(0,204,110,0.07) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .curriculum-card:nth-child(even)::before {
+            background: linear-gradient(180deg, rgba(255,60,142,0.07) 0%, transparent 100%);
+        }
+
+
+        .curriculum-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .curriculum-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
         }
 
         .curriculum-tag {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 96px;
-            padding: 8px 18px;
+            flex-shrink: 0;
+            min-width: 88px;
+            padding: 6px 16px;
             border-radius: 999px;
-            background: rgba(0,204,110,0.12);
+            background: rgba(0,204,110,0.1);
             color: #009954;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.0rem;
+            font-size: 0.82rem;
             font-weight: 900;
-            letter-spacing: 0.08em;
-            margin-bottom: 14px;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(0,204,110,0.25);
         }
 
         .curriculum-card:nth-child(even) .curriculum-tag {
-            background: rgba(255,60,142,0.12);
+            background: rgba(255,60,142,0.08);
             color: var(--pink);
+            border-color: rgba(255,60,142,0.25);
         }
 
         .curriculum-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 900;
-            margin-bottom: 8px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
         }
 
         .curriculum-card p {
             color: var(--text-mid);
-            font-size: 1.05rem;
-            font-weight: 500;
-            line-height: 1.8;
+            font-size: 1.0rem;
+            font-weight: 400;
+            line-height: 1.85;
         }
 
         /* ── 4. Appeal ── */
@@ -773,43 +799,61 @@
         .appeal-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
             justify-content: center;
         }
 
         .appeal-card {
             background: var(--gray-light);
-            border: 2px solid transparent;
+            border: none;
             border-radius: 20px;
-            padding: 36px 28px;
-            transition: border-color 0.2s, background 0.2s;
+            padding: 36px 26px 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 28px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .appeal-card:hover {
-            border-color: var(--green);
-            background: rgba(0,255,136,0.04);
-        }
-        .appeal-card:nth-child(2n) .appeal-num { color: var(--pink); }
 
+        .appeal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), var(--pink));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .appeal-card:nth-child(2n)::before {
+            background: linear-gradient(90deg, var(--pink), #8844ee);
+        }
+
+        .appeal-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 52px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06);
+        }
 
         .appeal-header {
             display: flex;
+            flex-direction: row;
             align-items: center;
             gap: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
 
         .appeal-num {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.0rem;
+            font-size: 2.6rem;
             font-weight: 900;
-            color: var(--green);
-            opacity: 0.35;
             line-height: 1;
-            flex-shrink: 0;
+            color: var(--green);
         }
 
-        .appeal-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin: 0; }
-        .appeal-card p  { font-size: 1.1rem; font-weight: 500; color: var(--text-mid); line-height: 1.85; margin: 0; }
+        .appeal-card:nth-child(2n) .appeal-num {
+            color: var(--pink);
+        }
+
+        .appeal-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .appeal-card p  { font-size: 1.0rem; font-weight: 500; color: var(--text-mid); line-height: 1.85; margin: 0; }
 
         /* ── 5. Pricing ── */
         #pricing { background: var(--gray-light); }
@@ -1259,23 +1303,31 @@
         <p class="curriculum-intro fade-up"><span style="color:var(--pink)">実践型の</span><br>カリキュラム</p>
         <div class="curriculum-list fade-up">
             <div class="curriculum-card">
-                <span class="curriculum-tag">STEP 01</span>
-                <h3>ゲーム制作の入口</h3>
+                <div class="curriculum-header">
+                    <span class="curriculum-tag">STEP 01</span>
+                    <h3>ゲーム制作の入口</h3>
+                </div>
                 <p>Unity / Roblox Studio の基本操作、シーン作成、オブジェクト配置を学び、まずは「動く」体験を作ります。</p>
             </div>
             <div class="curriculum-card">
-                <span class="curriculum-tag">STEP 02</span>
-                <h3>AIとの作り方を覚える</h3>
+                <div class="curriculum-header">
+                    <span class="curriculum-tag">STEP 02</span>
+                    <h3>AIとの作り方を覚える</h3>
+                </div>
                 <p>Codexに質問する、コードを読ませる、エラーを直すなど、制作を進めるためのAI活用を身につけます。</p>
             </div>
             <div class="curriculum-card">
-                <span class="curriculum-tag">STEP 03</span>
-                <h3>オリジナル作品制作</h3>
+                <div class="curriculum-header">
+                    <span class="curriculum-tag">STEP 03</span>
+                    <h3>オリジナル作品制作</h3>
+                </div>
                 <p>アクション、障害物、スコア、UIなどを組み合わせ、自分のアイデアをゲームとして形にします。</p>
             </div>
             <div class="curriculum-card">
-                <span class="curriculum-tag">STEP 04</span>
-                <h3>発表・公開までサポート</h3>
+                <div class="curriculum-header">
+                    <span class="curriculum-tag">STEP 04</span>
+                    <h3>発表・公開までサポート</h3>
+                </div>
                 <p>完成後はテストプレイ、改善、公開準備まで実施。作った作品を人に遊んでもらう経験につなげます。</p>
             </div>
         </div>
