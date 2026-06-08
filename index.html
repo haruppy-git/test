@@ -541,31 +541,6 @@
             width: 100%;
         }
         .hero-content { max-width: 100%; }
-        .hero-image {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 55%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            opacity: 0.6;
-        }
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top center;
-            -webkit-mask-image:
-                linear-gradient(to right, transparent 0%, black 30%),
-                linear-gradient(to bottom, black 80%, transparent 100%);
-            mask-image:
-                linear-gradient(to right, transparent 0%, black 30%),
-                linear-gradient(to bottom, black 80%, transparent 100%);
-            -webkit-mask-composite: source-in;
-            mask-composite: intersect;
-        }
-
         .hero-badge {
             display: inline-block;
             background: rgba(0,200,100,0.1);
@@ -765,7 +740,7 @@
             background: rgba(0,204,110,0.1);
             color: #009954;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.82rem;
+            font-size: 1.05rem;
             font-weight: 900;
             letter-spacing: 0.1em;
             border: 1px solid rgba(0,204,110,0.25);
@@ -778,21 +753,21 @@
         }
 
         .curriculum-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.45rem;
             font-weight: 900;
             color: var(--text-dark);
             margin-bottom: 10px;
         }
 
         .curriculum-card p {
-            color: var(--text-mid);
-            font-size: 1.0rem;
-            font-weight: 400;
+            color: var(--text-dark);
+            font-size: 1.35rem;
+            font-weight: 700;
             line-height: 1.85;
         }
 
         /* ── 4. Appeal ── */
-        #appeal { background: var(--white); }
+        #appeal { background: var(--white); padding-left: 16px; padding-right: 16px; }
         #appeal .section-title { color: var(--text-dark); }
         #appeal .section-desc  { color: var(--text-mid); }
 
@@ -852,8 +827,8 @@
             color: var(--pink);
         }
 
-        .appeal-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
-        .appeal-card p  { font-size: 1.0rem; font-weight: 500; color: var(--text-mid); line-height: 1.85; margin: 0; }
+        .appeal-card h3 { font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .appeal-card p  { font-size: 1.35rem; font-weight: 700; color: var(--text-dark); line-height: 1.85; margin: 0; }
 
         /* ── 5. Pricing ── */
         #pricing { background: var(--gray-light); }
@@ -869,7 +844,7 @@
         .pricing-card {
             background: var(--white);
             border-radius: 28px;
-            padding: 52px 48px;
+            padding: 52px 24px;
             text-align: center;
             position: relative;
             box-shadow: 0 12px 60px rgba(0,0,0,0.08);
@@ -888,7 +863,7 @@
             background: linear-gradient(135deg, var(--green), #00d4ff);
             color: var(--dark);
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 1.2rem;
             padding: 7px 24px;
             border-radius: 100px;
             margin-bottom: 24px;
@@ -896,16 +871,16 @@
 
         .price-main {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             font-weight: 900;
             color: var(--text-dark);
             line-height: 1;
             margin-bottom: 6px;
         }
-        .price-main sup { font-size: 1.2rem; vertical-align: super; }
-        .price-main small { font-size: 1rem; font-family: 'Noto Sans JP', sans-serif; font-weight: 400; }
+        .price-main sup { font-size: 1.4rem; vertical-align: super; }
+        .price-main small { font-size: 1.2rem; font-family: 'Noto Sans JP', sans-serif; font-weight: 400; }
 
-        .price-note { font-size: 1.05rem; font-weight: 500; color: var(--text-mid); margin-bottom: 32px; }
+        .price-note { font-size: 1.25rem; font-weight: 500; color: var(--text-mid); margin-bottom: 32px; }
 
         .breakdown {
             background: var(--gray-light);
@@ -920,7 +895,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 9px 0;
-            font-size: 1.05rem;
+            font-size: 1.25rem;
             font-weight: 500;
             color: var(--text-mid);
             border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -932,7 +907,7 @@
             list-style: none;
             text-align: left;
             margin-bottom: 36px;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 500;
         }
         .pricing-features li {
@@ -1312,21 +1287,21 @@
             <div class="curriculum-card">
                 <div class="curriculum-header">
                     <span class="curriculum-tag">STEP 02</span>
-                    <h3>AIとの作り方を覚える</h3>
+                    <h3>AI活用を覚える</h3>
                 </div>
                 <p>Codexに質問する、コードを読ませる、エラーを直すなど、制作を進めるためのAI活用を身につけます。</p>
             </div>
             <div class="curriculum-card">
                 <div class="curriculum-header">
                     <span class="curriculum-tag">STEP 03</span>
-                    <h3>オリジナル作品制作</h3>
+                    <h3>オリジナル作品</h3>
                 </div>
                 <p>アクション、障害物、スコア、UIなどを組み合わせ、自分のアイデアをゲームとして形にします。</p>
             </div>
             <div class="curriculum-card">
                 <div class="curriculum-header">
                     <span class="curriculum-tag">STEP 04</span>
-                    <h3>発表・公開までサポート</h3>
+                    <h3>発表・公開</h3>
                 </div>
                 <p>完成後はテストプレイ、改善、公開準備まで実施。作った作品を人に遊んでもらう経験につなげます。</p>
             </div>
@@ -1372,7 +1347,7 @@
         <div class="pricing-wrap fade-up">
             <div class="pricing-card">
                 <div class="pricing-badge">月額プラン</div>
-                <div class="price-main"><sup>¥</sup>11,000<small> + ¥3,000 / 月（税込）</small></div>
+                <div class="price-main"><sup>¥</sup>11,000<small> + ¥3,000 / 月(税込)</small></div>
 
                 <div class="breakdown">
                     <div class="breakdown-row">
