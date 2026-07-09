@@ -1147,13 +1147,13 @@
         #page-center .tool-cards        { grid-template-columns: 1fr; }
         #page-center .curriculum-list   { grid-template-columns: 1fr; }
         #page-center .appeal-grid       { grid-template-columns: 1fr; }
-        /* ── Narrow PC (ヒーロー列非表示) ── */
+        /* ── Narrow PC / タブレット共通（ヒーロー列非表示・中央カードレイアウト） ── */
         @media (max-width: 960px) {
             #hero { display: none; }
             body { justify-content: center; }
         }
-        /* ── Responsive (モバイル) ── */
-        @media (max-width: 768px) {
+        /* ── Responsive (モバイル・スマホのみ／タブレットはPCの縮小版レイアウトと共通) ── */
+        @media (max-width: 599px) {
             html, body { overflow: auto; height: auto; }
             body { flex-direction: column; align-items: center; justify-content: flex-start; }
 
@@ -1422,7 +1422,7 @@
                 </button>
                 <div class="faq-a">
                     <div class="faq-a-inner">
-                        <strong>中学1年生（13歳）以上</strong>を対象としています。中学生・高校生を中心に、年齢やレベルに合わせた指導を行います。まずは無料体験でお試しください。
+                        <strong>中学1年生（13歳）以上</strong>を対象としています。中学生・高校生を中心に、年齢やレベルに合わせた指導を行います。まずは無料体験でお試しください。<br>なお、OpenAI等の外部AIサービスは利用規約上13歳以上のアカウント登録が必要なため、13歳以下のお子様がご自身でアカウントを作成して直接利用することはできません。その場合は、AIチューター（講師）がAIの操作を担当し、お子様の指示のもとで一緒に進めることで、間接的にAIを活用しながら学んでいただけます。
                     </div>
                 </div>
             </div>
