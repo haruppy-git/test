@@ -540,7 +540,8 @@
             z-index: 2;
             width: 100%;
         }
-        .hero-content { max-width: 100%; }
+        /* 見出しパネル幅に対する比率でテキスト幅を抑え、右側(スクロールカード側)のイラスト用余白を画面幅に応じて確保 */
+        .hero-content { max-width: clamp(400px, 60%, 640px); }
         .hero-badge {
             display: inline-block;
             background: rgba(0,200,100,0.1);
